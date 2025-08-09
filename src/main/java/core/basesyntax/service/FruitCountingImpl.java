@@ -7,20 +7,19 @@ import java.util.List;
 import java.util.Map;
 
 public class FruitCountingImpl implements FruitCounting {
-    private OperationStrategy operationStrategy =
-            new OperationStrategyImpl(new OperationHandlerRegistry().getOperation());
+    private final OperationStrategy operationStrategy;
+
+    public FruitCountingImpl(OperationStrategy operationStrategy) {
+        this.operationStrategy = operationStrategy;
+    }
 
     @Override
-    public Map<String, Integer> fruitCounting() {
+    public Map<String, Integer> fruitCounting(List<FruitTransaction> fruitTransactions) {
         Map<String, Integer> fruitStorage = new HashMap<>();
-        DataConverter dataConverter = new DataConverterImpl();
-        List<FruitTransaction> fruitTransactions = dataConverter.get();
-
         for (FruitTransaction fruit : fruitTransactions) {
             OperationHandler operationHandler = operationStrategy.get(fruit.getOperation());
             operationHandler.apply(fruit, fruitStorage);
         }
-
         return fruitStorage;
     }
 }

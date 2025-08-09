@@ -1,7 +1,5 @@
 package core.basesyntax.service;
 
-import core.basesyntax.file.MyFileReader;
-import core.basesyntax.file.MyFileReaderImpl;
 import core.basesyntax.model.FruitTransaction;
 import java.util.List;
 
@@ -9,26 +7,24 @@ public class DataConverterImpl implements DataConverter {
     private static final String SEPARATOR = ",";
 
     @Override
-    public List<FruitTransaction> get() {
-        MyFileReader reader = new MyFileReaderImpl();
-        List<String> transactions = reader.read();
-
+    public List<FruitTransaction> get(List<String> transactions) {
         return transactions.stream()
                 .skip(1)
                 .map(this::getFromCsv)
                 .toList();
     }
 
-    public FruitTransaction getFromCsv(String line) {
-        FruitTransaction fruitTransaction = new FruitTransaction();
+    private FruitTransaction getFromCsv(String line) {
         String[] words = line.split(SEPARATOR);
-        fruitTransaction.setOperation(fromCode(words[0]));
-        fruitTransaction.setFruit(words[1]);
-        fruitTransaction.setQuantity(Integer.parseInt(words[2]));
-        return fruitTransaction;
+        int quantity = Integer.parseInt(words[2]);
+        if (quantity < 0) {
+            throw new IllegalArgumentException(
+                    "Quantity cannot be negative. Found: " + quantity + " in line: " + line);
+        }
+        return new FruitTransaction(fromCode(words[0]), words[1], quantity);
     }
 
-    public FruitTransaction.Operation fromCode(String code) {
+    private FruitTransaction.Operation fromCode(String code) {
         for (FruitTransaction.Operation operation : FruitTransaction.Operation.values()) {
             if (operation.getCode().equals(code)) {
                 return operation;

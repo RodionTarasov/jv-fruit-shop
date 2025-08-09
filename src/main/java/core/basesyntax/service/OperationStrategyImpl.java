@@ -5,7 +5,7 @@ import core.basesyntax.service.operation.OperationHandler;
 import java.util.Map;
 
 public class OperationStrategyImpl implements OperationStrategy {
-    private Map<FruitTransaction.Operation, OperationHandler> operationHandlerMap;
+    private final Map<FruitTransaction.Operation, OperationHandler> operationHandlerMap;
 
     public OperationStrategyImpl(Map<FruitTransaction.Operation,
             OperationHandler> operationHandlerMap) {
@@ -14,6 +14,12 @@ public class OperationStrategyImpl implements OperationStrategy {
 
     @Override
     public OperationHandler get(FruitTransaction.Operation operation) {
-        return operationHandlerMap.get(operation);
+        OperationHandler handler = operationHandlerMap.get(operation);
+        if (handler == null) {
+            throw new UnsupportedOperationException(
+                    "No handler found for operation: " + operation
+            );
+        }
+        return handler;
     }
 }

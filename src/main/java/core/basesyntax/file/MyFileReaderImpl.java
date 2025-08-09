@@ -6,14 +6,13 @@ import java.nio.file.Path;
 import java.util.List;
 
 public class MyFileReaderImpl implements MyFileReader {
-    private static final String FILE_NAME = "reportToRead.csv";
 
     @Override
-    public List<String> read() {
+    public List<String> read(String filePath) {
         try {
-            return Files.readAllLines(Path.of(FILE_NAME));
+            return Files.readAllLines(Path.of(filePath));
         } catch (IOException e) {
-            throw new RuntimeException("Can't read file",e);
+            throw new RuntimeException("Can't read file from path: " + filePath, e);
         }
     }
 }
