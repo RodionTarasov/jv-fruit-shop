@@ -1,7 +1,7 @@
-package core.basesyntax.file;
+package core.basesyntax.db;
 
 import java.util.List;
 
-public interface MyFileReader {
+public interface FileReader {
     List<String> read(String filePath);
 }

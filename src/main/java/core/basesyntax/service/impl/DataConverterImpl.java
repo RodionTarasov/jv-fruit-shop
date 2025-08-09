@@ -1,13 +1,15 @@
-package core.basesyntax.service;
+package core.basesyntax.service.impl;
 
 import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.service.DataConverter;
 import java.util.List;
 
 public class DataConverterImpl implements DataConverter {
     private static final String SEPARATOR = ",";
+    private static final int ARRAY_LENGTH = 3;
 
     @Override
-    public List<FruitTransaction> get(List<String> transactions) {
+    public List<FruitTransaction> convertToTransaction(List<String> transactions) {
         return transactions.stream()
                 .skip(1)
                 .map(this::getFromCsv)
@@ -16,6 +18,9 @@ public class DataConverterImpl implements DataConverter {
 
     private FruitTransaction getFromCsv(String line) {
         String[] words = line.split(SEPARATOR);
+        if (words.length < ARRAY_LENGTH) {
+            throw new IllegalArgumentException("invalid array length");
+        }
         int quantity = Integer.parseInt(words[2]);
         if (quantity < 0) {
             throw new IllegalArgumentException(

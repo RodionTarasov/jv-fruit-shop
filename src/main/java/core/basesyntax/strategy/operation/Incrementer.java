@@ -1,8 +1,12 @@
-package core.basesyntax.service.operation;
+package core.basesyntax.strategy.operation;
 
 import java.util.Map;
 
 public class Incrementer {
+
+    private Incrementer() {
+    }
+
     public static void add(Map<String, Integer> storage, String fruit, int quantity) {
         if (quantity < 0) {
             throw new IllegalArgumentException(

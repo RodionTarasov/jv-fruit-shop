@@ -4,5 +4,5 @@ import core.basesyntax.model.FruitTransaction;
 import java.util.List;
 
 public interface DataConverter {
-    List<FruitTransaction> get(List<String> transactions);
+    List<FruitTransaction> convertToTransaction(List<String> transactions);
 }

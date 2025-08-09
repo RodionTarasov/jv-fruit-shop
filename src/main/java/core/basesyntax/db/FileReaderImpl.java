@@ -1,11 +1,11 @@
-package core.basesyntax.file;
+package core.basesyntax.db;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class MyFileReaderImpl implements MyFileReader {
+public class FileReaderImpl implements FileReader {
 
     @Override
     public List<String> read(String filePath) {
