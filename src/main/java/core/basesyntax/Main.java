@@ -18,20 +18,13 @@ import core.basesyntax.strategy.operation.OperationHandler;
 import core.basesyntax.strategy.operation.PurchaseHandler;
 import core.basesyntax.strategy.operation.ReturnHandler;
 import core.basesyntax.strategy.operation.SupplyHandler;
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final String INPUT_FILE_PATH = "src" + File.separator
-            + "main" + File.separator
-            + "resources" + File.separator
-            + "reportToRead.csv";
-    private static final String FILE_REPORT = "src" + File.separator
-            + "main" + File.separator
-            + "resources" + File.separator
-            + "finalReport.csv";
+    private static final String INPUT_FILE_PATH = "src/main/resources/reportToRead.csv";
+    private static final String FILE_REPORT = "src/main/resources/finalReport.csv";
 
     public static void main(String[] args) {
         FileReader reader = new FileReaderImpl();
